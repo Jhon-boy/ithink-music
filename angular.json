@@ -29,15 +29,15 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
+              "server": "src/main.server.ts",
+              "prerender": true,
+              "ssr": {
+                "entry": "server.ts"
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -55,7 +55,8 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "ssr": false
             }
           },
           "defaultConfiguration": "production"
@@ -97,5 +98,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "6a8c02f9-114f-4dd6-8f11-b5caef86d3b9"
   }
 }
