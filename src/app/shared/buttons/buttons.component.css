@@ -1,0 +1,40 @@
+.btn {
+  min-width: 140px;
+  max-width: 360px;
+  min-height: 46px;
+  max-height: 56px;
+  padding: 0 1.75rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* Por defecto: estilo primario (usa --color-button del design system) */
+.btn {
+  color: var(--color-button-text, #fff);
+  background-color: var(--color-button, var(--color-primary));
+}
+
+.btn:hover:not(:disabled) {
+  background-color: var(--color-button-hover, var(--color-primary-hover));
+}

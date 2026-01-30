@@ -1,0 +1,12 @@
+<button
+  type="button"
+  class="btn"
+  [disabled]="loading"
+  [style.color]="colorText ?? null"
+  [style.background-color]="colorBackground ?? null"
+  [style.height]="height"
+  [style.width]="width"
+  (click)="onClick()"
+>
+  {{ title }}
+</button>

@@ -32,10 +32,16 @@ export class FakeStoreMapper {
     */
     static mapLoginError(error: any): ResponseModelFakeStore<null> {
         const code = error?.status != null ? String(error.status) : '99';
+        let menssage = '';
+        if (code === '401') {
+            menssage = AppConstant.ERROR_LOGIN_401;
+        } else {
+            menssage = error?.message ?? 'ERROR_LOGIN';
+        }
         return new ResponseModelFakeStore<null>(
             false,
             code,
-            error?.message ?? 'ERROR_LOGIN',
+            menssage,
             null
         );
     }

@@ -1,6 +1,6 @@
 <form [formGroup]="loginForm" (ngSubmit)="submit()" class="login-form">
 
-    <h2>Iniciar Sesión</h2>
+    <h2 class="text-center">Iniciar Sesión</h2>
 
     <!-- USUARIO -->
     <div class="form-group">
@@ -24,14 +24,11 @@
         </small>
     </div>
 
-    <!-- ERROR GENERAL -->
-    <div class="error general" *ngIf="errorMessage">
-        {{ errorMessage }}
+    <!-- BOTÓN -->
+    <div class="button-container">
+        <app-buttons title="Ingresar" [callback]="onSubmit" [loading]="loading">
+        </app-buttons>
     </div>
 
-    <!-- BOTÓN -->
-    <button type="submit" [disabled]="loading || loginForm.invalid">
-        {{ loading ? 'Ingresando...' : 'Ingresar' }}
-    </button>
 
 </form>

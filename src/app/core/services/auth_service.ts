@@ -19,7 +19,6 @@ export class AuthService implements IAuthRepository {
 
     constructor(private http: HttpService) { }
     login(credentials: AuthModelLogin, showLoader?: boolean): Observable<ResponseModelFakeStore<UserAuthModel | null>> {
-
         return this.http.post<{ token: string }>(AppConstant.LOGIN_URL, credentials, undefined, showLoader)
             .pipe(
                 map(resp => FakeStoreMapper.mapLoginSuccess(resp, credentials)),

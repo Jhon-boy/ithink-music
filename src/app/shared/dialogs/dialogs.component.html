@@ -1,0 +1,32 @@
+<div class="backdrop" *ngIf="dialog()" (click)="onBackdropClick()">
+
+    <div class="dialog" [ngClass]="dialog()?.type" (click)="$event.stopPropagation()">
+
+        <div class="header">
+            <i class="icon fas" [ngClass]="{
+                'fa-circle-info': dialog()?.type === 'info',
+                'fa-circle-check': dialog()?.type === 'ok',
+                'fa-circle-xmark': dialog()?.type === 'error',
+                'fa-circle-question': dialog()?.type === 'confirm'
+            }"></i>
+            <h2 class="title">{{ dialog()?.title }}</h2>
+        </div>
+        <div class="divider"></div>
+        <p class="message">{{ dialog()?.message }}</p>
+
+        <div class="actions">
+            <app-buttons
+                *ngIf="dialog()?.type === 'confirm'"
+                title="Cancelar"
+                [callback]="onCancel"
+                colorText="#475569"
+                colorBackground="#fff">
+            </app-buttons>
+            <app-buttons
+                title="Aceptar"
+                [callback]="onAccept">
+            </app-buttons>
+        </div>
+    </div>
+
+</div>

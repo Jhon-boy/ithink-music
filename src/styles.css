@@ -1,28 +1,211 @@
-/* You can add global styles to this file, and also import other style files */
-/* Clases globales que sobre escriben otras, declaran propiedades
-*/
+/* ==========================================================================
+   Design tokens centralizados
+   Uso en cualquier componente .css o .scss:
+     color: var(--color-text);
+     background: var(--color-background);
+     border-color: var(--color-border);
+   O en el template con clase: class="bg-primary" / class="text-muted"
+   ========================================================================== */
 
 :root {
-    --color-primario: #4CAF50;
-    --color-secundario: #161514;
-    --color-text: #FFFFFF;
-    --font-size-1: 1rem;
-    --font-size-2: 1.5rem;
-    --font-size-3: 1.8rem;
-    --shadow-1: rgb(0 0 0 / 35%) 0px 8px 24px;
-    --shadow-2: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    --border-radius-1: .25rem;
-    --border-radius-2: .5rem;
-    --font-family-1: 'Poppins', sans-serif;
-    --animations-1: 200ms;
+  /* --- Colores de marca --- */
+  --color-primary: #0cc181;
+  --color-primary-hover: #43a047;
+  --color-primary-light: rgba(76, 175, 80, 0.15);
+  --color-secondary: #161514;
+
+  /* --- Botón principal (usa color primario) --- */
+  --color-button: var(--color-primary);
+  --color-button-hover: var(--color-primary-hover);
+  --color-button-text: #ffffff;
+
+  /* --- Fondos (tema claro) --- */
+  --color-background: #f5f5f5;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #fafafa;
+
+  /* --- Texto (tema claro) --- */
+  --color-text: #1a1a1a;
+  --color-text-muted: rgba(0, 0, 0, 0.65);
+  --color-text-disabled: rgba(0, 0, 0, 0.4);
+
+  /* --- Estados (feedback) --- */
+  --color-error: #ef5350;
+  --color-error-bg: rgba(239, 83, 80, 0.12);
+  --color-success: #66bb6a;
+  --color-success-bg: rgba(102, 187, 106, 0.12);
+  --color-warning: #ffa726;
+  --color-warning-bg: rgba(255, 167, 38, 0.12);
+  --color-info: #42a5f5;
+
+  /* --- Bordes y divisores (tema claro) --- */
+  --color-border: rgba(0, 0, 0, 0.12);
+  --color-border-strong: rgba(0, 0, 0, 0.2);
+
+  /* --- Tipografía --- */
+  --font-family: 'Poppins', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* --- Espaciado --- */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+
+  /* --- Radio y sombras --- */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* --- Transiciones --- */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --ease-default: ease;
+  --ease-in-out: ease-in-out;
 }
 
-html,
-body{
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-secundario);
-    font-family: var(--font-family-1);
-    font-size: var(--font-size-1);
-    color: var(--color-text);
+/* Alias en español (opcional, para no romper estilos existentes) */
+:root {
+  --color-primario: var(--color-primary);
+  --color-secundario: var(--color-background);
+  --font-size-1: var(--font-size-base);
+  --font-size-2: var(--font-size-2xl);
+  --font-size-3: var(--font-size-3xl);
+  --font-family-1: var(--font-family);
+  --shadow-1: var(--shadow-lg);
+  --shadow-2: var(--shadow-md);
+  --border-radius-1: var(--radius-sm);
+  --border-radius-2: var(--radius-md);
+  --animations-1: var(--duration-normal);
 }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+}
+
+/* ==========================================================================
+   Inputs (diseño general con bordes)
+   ========================================================================== */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2, 0.5rem);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base, 1rem);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color var(--duration-normal) var(--ease-default),
+    box-shadow var(--duration-normal) var(--ease-default);
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 80px;
+  padding: 0.75rem 1rem;
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+input.invalid:not(:focus),
+textarea.invalid:not(:focus) {
+  border-color: var(--color-error);
+}
+
+input:disabled,
+textarea:disabled {
+  background-color: var(--color-surface-elevated);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Label opcional encima del input */
+.input-container label {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text);
+}
+
+/* Mensaje de error debajo del input */
+.input-container .error,
+.input-container small.error {
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--color-error);
+}
+
+/* ==========================================================================
+   Clases de utilidad para colores (uso rápido en templates)
+   ========================================================================== */
+.bg-primary { background-color: var(--color-primary); }
+.bg-background { background-color: var(--color-background); }
+.bg-surface { background-color: var(--color-surface); }
+.bg-surface-elevated { background-color: var(--color-surface-elevated); }
+.bg-error { background-color: var(--color-error-bg); }
+.bg-success { background-color: var(--color-success-bg); }
+.bg-warning { background-color: var(--color-warning-bg); }
+
+.text-primary { color: var(--color-primary); }
+.text-muted { color: var(--color-text-muted); }
+.text-disabled { color: var(--color-text-disabled); }
+.text-error { color: var(--color-error); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+
+.border-default { border-color: var(--color-border); }
+.border-strong { border-color: var(--color-border-strong); }

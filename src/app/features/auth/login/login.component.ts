@@ -1,13 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginService } from '../services/login_service';
+import { Router } from '@angular/router';
 import { AuthModelLogin, UserAuthModel } from '@core/models/auth.model';
 import { ResponseModelFakeStore } from '@core/models/in/responseFakeStore.model';
+import { DiologService } from '@shared/dialogs/service/dialog.service';
+import { LoginService } from '../services/login_service';
+import { ButtonsComponent } from '@shared/buttons/buttons.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule, ButtonsComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -22,7 +26,9 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router,
+    private dialogService: DiologService
   ) {
     this.initForm();
   }
@@ -35,8 +41,14 @@ export class LoginComponent {
   }
 
   /**
+   * Callback para el botón (arrow function para conservar this)
+   */
+  onSubmit = (): void => {
+    this.submit();
+  };
+
+  /**
    * Método para enviar el formulario de login
-   * @returns 
    */
   submit(): void {
     if (this.loginForm.invalid) {
@@ -58,12 +70,22 @@ export class LoginComponent {
         next: (response: ResponseModelFakeStore<UserAuthModel | null>) => {
           const success = this.loginService.handleLoginSuccess(response);
 
-          if (!success) {
-            this.errorMessage = response.message || 'Credenciales inválidas';
+          if (success) {
+            this.router.navigate(['/home']);
+          } else {
+            this.dialogService.error(
+              response.message || 'Credenciales inválidas',
+              undefined,
+              true
+            );
           }
         },
         error: () => {
-          this.errorMessage = 'Error inesperado al iniciar sesión';
+          this.dialogService.error(
+            'Error inesperado al iniciar sesión. Revisa tu conexión.',
+            undefined,
+            true
+          );
         },
         complete: () => {
           this.loading = false;
