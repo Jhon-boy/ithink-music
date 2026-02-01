@@ -2,5 +2,5 @@
 export const environment = {
     production: false,
     fakeStoreUrlBase: 'https://fakestoreapi.com',
-    timeOut: 3000 // EN segundos
+    timeOut: 30000 // EN segundos
 }

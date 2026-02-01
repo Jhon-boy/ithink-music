@@ -71,7 +71,7 @@ export class LoginComponent {
           const success = this.loginService.handleLoginSuccess(response);
 
           if (success) {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
           } else {
             this.dialogService.error(
               response.message || 'Credenciales inválidas',

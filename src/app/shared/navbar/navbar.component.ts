@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { AppModuleTab } from '@core/models/app_module_tab';
 import { ModuleRegistreService } from '@core/services/module_registre_service';
 import { AuthStateService } from '@features/auth/services/auth_state_service';
 /**
@@ -7,7 +9,7 @@ import { AuthStateService } from '@features/auth/services/auth_state_service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -28,4 +30,13 @@ export class NavbarComponent {
   toggle(module: string) {
     this.expanded = this.expanded === module ? null : module;
   }
+
+  /**
+   * Selecciona un módulo
+   * @param module - El módulo a seleccionar
+   */
+  select(module: AppModuleTab) {
+    this.registry.setActive(module);
+  }
+
 }

@@ -22,3 +22,31 @@ export interface UserAuthModel {
     user: UserModel;
     token: AuthResponseModel;
 }
+
+/**
+ * Modelo para el Usuario Autenticado de la API
+ */
+export interface UserFullModel extends UserModel {
+  phone: string;
+  address: Address;
+  name: Name;
+  __v: number;
+}
+
+export interface Address {
+  city: string;
+  street: string;
+  number: number;
+  zipcode: string;
+  geolocation: GeoLocation;
+}
+
+export interface GeoLocation {
+  lat: string;
+  long: string;
+}
+
+export interface Name {
+  firstname: string;
+  lastname: string;
+}

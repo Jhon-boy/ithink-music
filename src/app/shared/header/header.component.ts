@@ -12,6 +12,7 @@ import { SesionService } from '@features/auth/services/sesion_service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  // Header component for displaying user info and logout
 
   auth = inject(AuthStateService);
   user = this.auth.user$;

@@ -13,12 +13,12 @@ export class SesionService {
 
     // Setea el estado de la sesión
     set(state: SesionState): void {
-        sessionStorage.setItem(AppConstant.KEY, JSON.stringify(state));
+        localStorage.setItem(AppConstant.KEY, JSON.stringify(state));
     }
 
     // Obtiene el estado de la sesión
     get(): SesionState | null {
-        const raw = sessionStorage.getItem(AppConstant.KEY);
+        const raw = localStorage.getItem(AppConstant.KEY);
         if (!raw) return null;
 
         const state: SesionState = JSON.parse(raw);
@@ -30,10 +30,12 @@ export class SesionService {
 
         return state;
     }
+
     // Elimina el estado de la sesión
     clear(): void {
-        sessionStorage.removeItem(AppConstant.KEY);
+        localStorage.removeItem(AppConstant.KEY);
     }
+
     // Verifica si la sesión ha expirado
     private isExpired(state: SesionState): boolean {
         return Date.now() - state.loginTime > AppConstant.SESION_TTL;

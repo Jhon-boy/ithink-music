@@ -1,5 +1,5 @@
 import { AppConstant } from '@core/constantes/AppConstant';
-import { AuthModelLogin, AuthResponseModel, UserAuthModel } from '@core/models/auth.model';
+import { AuthModelLogin, AuthResponseModel, UserAuthModel, UserFullModel } from '@core/models/auth.model';
 import { ResponseModelFakeStore } from '@core/models/in/responseFakeStore.model';
 import { UserModel } from '@core/models/user.model';
 
@@ -43,6 +43,14 @@ export class FakeStoreMapper {
             code,
             menssage,
             null
+        );
+    }
+    static mapUserSuccess(response: UserFullModel): ResponseModelFakeStore<UserFullModel> {
+        return new ResponseModelFakeStore<UserFullModel>(
+            true,
+            AppConstant.CODIGO_OK,
+            'USER_OK',
+            response
         );
     }
 }

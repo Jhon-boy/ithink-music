@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AppConstant } from '@core/constantes/AppConstant';
 import { FakeStoreMapper } from '@core/mappers/fakeStoreMapper';
-import { AuthModelLogin, UserAuthModel } from '@core/models/auth.model';
+import { AuthModelLogin, UserAuthModel, UserFullModel } from '@core/models/auth.model';
 import { ResponseModelFakeStore } from '@core/models/in/responseFakeStore.model';
 import { IAuthRepository } from '@core/repository/auth_repository';
 import { HttpService } from './http_service';
@@ -26,4 +26,11 @@ export class AuthService implements IAuthRepository {
             );
     }
 
+    getUser(credential: number, showLoader?: boolean): Observable<ResponseModelFakeStore<UserFullModel | null>> {
+        return this.http.get<UserFullModel>(AppConstant.GET_USER_BY_ID + '/' + credential, undefined, showLoader)
+            .pipe(
+                map(resp => FakeStoreMapper.mapUserSuccess(resp)),
+                catchError(err => of(FakeStoreMapper.mapLoginError(err)))
+            );
+    }
 }

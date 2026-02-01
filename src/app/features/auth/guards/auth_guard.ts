@@ -3,6 +3,10 @@ import { SesionService } from "../services/sesion_service"
 import { CanActivateFn, Router } from "@angular/router";
 
 
+/**
+ * Guard para proteger rutas que requieren autenticación
+ * @returns boolean
+ */
 export const authGuard: CanActivateFn = () => {
 
     const sessionService = inject(SesionService);

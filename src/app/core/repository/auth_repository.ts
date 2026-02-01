@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthModelLogin, UserAuthModel } from '../models/auth.model';
+import { AuthModelLogin, UserAuthModel, UserFullModel } from '../models/auth.model';
 import { ResponseModelFakeStore } from '@core/models/in/responseFakeStore.model';
 
 export const AUTH_REPOSITORY = new InjectionToken<IAuthRepository>('IAuthRepository');
@@ -16,4 +16,11 @@ export interface IAuthRepository {
      * @param showLoader Si es true, muestra el loader durante la petición (por defecto false)
      */
     login(credentials: AuthModelLogin, showLoader?: boolean): Observable<ResponseModelFakeStore<UserAuthModel | null>>;
+
+    /**
+     * Obtiene el usuario autenticado.
+     * @param credential Id del usuario
+     * @param showLoader Si es true, muestra el loader durante la petición (por defecto false)
+     */
+    getUser(credential: number, showLoader?: boolean): Observable<ResponseModelFakeStore<UserFullModel | null>>;
 }
