@@ -43,4 +43,14 @@ export class ModuleRegistreService {
     setActive(module: AppModuleTab) {
         this.activeSignal.set(module);
     }
+
+    /**
+     * Establece los módulos de la aplicación
+     * @param modules 
+     */
+    setModules(modules: AppModuleTab[]) {
+        this.modulesSignal.set(modules);
+        this.activeSignal.set(modules[0] ?? null);
+    }
+
 }

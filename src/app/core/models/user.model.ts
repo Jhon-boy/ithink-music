@@ -1,3 +1,4 @@
+import { RolModel } from "./rol_model";
 
 /**
  * Modelo para el Usuario de la API

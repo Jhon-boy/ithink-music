@@ -4,9 +4,11 @@
  */
 
 import { CommonModule } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, effect, inject } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { mapRolToModuleTab } from "@core/mappers/rolMapper";
 import { ModuleRegistreService } from "@core/services/module_registre_service";
+import { AuthStateService } from "@features/auth/services/auth_state_service";
 import { UserComponent } from "@features/user/user.component";
 import { HeaderComponent } from "@shared/header/header.component";
 import { NavbarComponent } from "@shared/navbar/navbar.component";
@@ -15,38 +17,38 @@ import { NavbarComponent } from "@shared/navbar/navbar.component";
   selector: 'app-main-layout',
   standalone: true,
   imports: [HeaderComponent, NavbarComponent, RouterOutlet, CommonModule],
+  styleUrl: './main_layout.css',
   template: `
-   <app-header />
+   <div class="layout-container">
+     <app-header />
 
-    <div class="flex h-[calc(100vh-56px)]">
-      <app-navbar />
+     <div class="layout-content">
+       <app-navbar />
 
-      <main class="flex-1 bg-slate-100 p-4 overflow-auto">
-        <ng-container *ngIf="active() as tab">
-          <ng-container *ngComponentOutlet="tab.component" />
-        </ng-container>
-      </main>
-    </div>
-    
+       <main class="main-content">
+         <ng-container *ngIf="active() as tab">
+           <ng-container *ngComponentOutlet="tab.component" />
+         </ng-container>
+       </main>
+     </div>
+   </div>
     `
 })
 export class MainLayoutComponent {
   active = inject(ModuleRegistreService).active$;
   private registry = inject(ModuleRegistreService);
+  private authState = inject(AuthStateService);
 
   constructor() {
-    // Registramos el TAB del Perfil del usuario
-    this.registerTabsProfile();
+    effect(
+      () => {
+        const role = this.authState.activeRol$();
+        if (!role) return;
+        const modules = mapRolToModuleTab(role.name);
+        this.registry.setModules(modules);
+      },
+      { allowSignalWrites: true }
+    );
   }
 
-  /**
-   * Registra los tabs de la aplicación
-   */
-  private registerTabsProfile() {
-    this.registry.register({
-      id: 'user',
-      title: 'Mi Perfil',
-      component: UserComponent
-    });
-  }
 }

@@ -32,7 +32,9 @@ export interface UserFullModel extends UserModel {
   name: Name;
   __v: number;
 }
-
+/**
+ * Modelo para la dirección del usuario
+ */
 export interface Address {
   city: string;
   street: string;

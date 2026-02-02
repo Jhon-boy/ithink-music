@@ -1,33 +1,68 @@
 <header class="header-container">
-    <!-- Logo y Título -->
+    <!-- Logo -->
     <div class="logo-section">
-        <img src="assets/images/logo.png" alt="iThink Music Logo" class="logo-image">
-        <span class="logo-text">iThink Music</span>
+      <img src="assets/images/logo.png" alt="Logo" class="logo-image">
+      <span class="logo-text">iThink Music</span>
     </div>
-
-    <!-- User Section -->
-    <div *ngIf="user()" class="user-section">
-        <!-- User Info -->
-        <div class="user-info">
-            <div class="user-name">{{ user()?.username }}</div>
-            <div class="user-email">{{ user()?.email }}</div>
+  
+    <!-- User dropdown -->
+    <div *ngIf="user()" class="user-wrapper">
+  
+      <!-- Trigger -->
+      <div class="user-trigger" [class.active]="open()" (click)="toggleMenu()">
+        <div class="avatar">
+          {{ user()?.username?.charAt(0)?.toUpperCase() }}
         </div>
-
-        <!-- User Avatar -->
-        <div class="user-avatar">
-            <div class="avatar-circle">
-              {{ user()?.username?.charAt(0)?.toUpperCase() }}
+  
+        <span class="username">{{ user()?.username }}</span>
+  
+        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </div>
+  
+      <!-- Dropdown -->
+      <div *ngIf="open()" class="user-dropdown">
+  
+        <!-- Roles -->
+        <div class="roles-section">
+          <div class="section-title">Roles</div>
+  
+          <div class="roles-grid">
+            <div
+              *ngFor="let role of roles()"
+              class="role-card"
+              [class.active]="role.id === activeRole()?.id"
+              (click)="changeRole(role)"
+            >
+              {{ role.name }}
             </div>
+          </div>
         </div>
+  
+        <div class="divider"></div>
+  
+        <!-- Session info -->
+        <div class="session-info">
+          <div>
+            <span>Inicio:</span>
+            <strong>{{ loginTimeFormatted() }}</strong>
+          </div>
+  
+          <div>
+            <span>Tiempo activo:</span>
+            <strong>{{ elapsedTime() }}</strong>
+          </div>
+        </div>
+  
+        <div class="divider"></div>
+        <div class="logout">
+            <app-buttons title="Salir" [callback]="logout">
 
-        <!-- Logout Button -->
-        <button class="logout-btn" (click)="logout()">
-            <svg class="logout-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-            <span>Salir</span>
-        </button>
+            </app-buttons>
+      
+        </div>
+      </div>
     </div>
-</header>
+  </header>
+  

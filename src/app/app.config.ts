@@ -6,6 +6,8 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { routes } from './app.routes';
 import { AUTH_REPOSITORY } from './core/repository/auth_repository';
 import { AuthService } from './core/services/auth_service';
+import { ROL_REPOSITORY } from '@core/repository/rol_repository';
+import { RolService } from '@core/services/rol_service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(),
     { provide: AUTH_REPOSITORY, useClass: AuthService },
+    { provide: ROL_REPOSITORY,  useClass: RolService
+    }
   ],
 };
