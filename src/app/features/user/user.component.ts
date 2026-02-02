@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { UserFullModel } from '@core/models/auth.model';
-import { UserService } from './services/user_service';
-import { ModuleRegistreService } from '@core/services/module_registre_service';
+import { UserController } from './controller/user_controller'; 
 
 @Component({
   selector: 'app-user',
@@ -15,7 +14,7 @@ export class UserComponent implements OnInit {
 
   user: UserFullModel | null = null;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserController) {
   }
 
   ngOnInit(): void {

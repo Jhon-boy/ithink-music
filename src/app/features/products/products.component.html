@@ -1,1 +1,11 @@
-<p>products works!</p>
+ <section class="products">
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  } @else {
+    <div class="products__list">
+      @for (product of products; track product.id) {
+        <app-product-item [product]="product"></app-product-item>
+      }
+    </div>
+  }
+ </section>

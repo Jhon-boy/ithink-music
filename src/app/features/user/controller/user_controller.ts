@@ -14,7 +14,7 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
-export class UserService {
+export class UserController {
 
     constructor(
         @Inject(AUTH_REPOSITORY) private authRepository: IAuthRepository

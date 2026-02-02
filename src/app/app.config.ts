@@ -8,6 +8,8 @@ import { AUTH_REPOSITORY } from './core/repository/auth_repository';
 import { AuthService } from './core/services/auth_service';
 import { ROL_REPOSITORY } from '@core/repository/rol_repository';
 import { RolService } from '@core/services/rol_service';
+import { PRODUCT_REPOSITORY } from '@core/repository/product_repository';
+import { ProductService } from '@core/services/product_service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(),
     { provide: AUTH_REPOSITORY, useClass: AuthService },
-    { provide: ROL_REPOSITORY,  useClass: RolService
-    }
+    { provide: ROL_REPOSITORY, useClass: RolService },
+    { provide: PRODUCT_REPOSITORY, useClass: ProductService }
   ],
 };

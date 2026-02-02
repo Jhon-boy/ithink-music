@@ -1,5 +1,6 @@
 import { AppConstant } from '@core/constantes/AppConstant';
 import { AuthModelLogin, AuthResponseModel, UserAuthModel, UserFullModel } from '@core/models/auth.model';
+import { ProductModel } from '@core/models/product_model';
 import { ResponseModelFakeStore } from '@core/models/in/responseFakeStore.model';
 import { UserModel } from '@core/models/user.model';
 
@@ -52,5 +53,45 @@ export class FakeStoreMapper {
             'USER_OK',
             response
         );
+    }
+
+    /**
+     * Mapa de respuesta exitosa para un producto (get, create, update).
+     */
+    static mapProductSuccess(response: ProductModel): ResponseModelFakeStore<ProductModel> {
+        return new ResponseModelFakeStore<ProductModel>(
+            true,
+            AppConstant.CODIGO_OK,
+            'PRODUCT_OK',
+            response
+        );
+    }
+
+    /**
+     * Mapa de respuesta exitosa para lista de productos.
+     */
+    static mapProductsSuccess(response: ProductModel[]): ResponseModelFakeStore<ProductModel[]> {
+        return new ResponseModelFakeStore<ProductModel[]>(
+            true,
+            AppConstant.CODIGO_OK,
+            'PRODUCTS_OK',
+            Array.isArray(response) ? response : []
+        );
+    }
+
+    /**
+     * Mapa de respuesta exitosa para delete (sin data).
+     */
+    static mapProductDeleteSuccess(): ResponseModelFakeStore<null> {
+        return new ResponseModelFakeStore<null>(true, AppConstant.CODIGO_OK, 'PRODUCT_DELETED', null);
+    }
+
+    /**
+     * Mapa de respuesta de error para productos. Code siempre string.
+     */
+    static mapProductError(error: any): ResponseModelFakeStore<null> {
+        const code = error?.status != null ? String(error.status) : '99';
+        const message = error?.message ?? 'ERROR_PRODUCT';
+        return new ResponseModelFakeStore<null>(false, code, message, null);
     }
 }

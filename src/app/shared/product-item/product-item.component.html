@@ -1,0 +1,10 @@
+<article class="card">
+  <div class="card__cover">
+    <img [src]="product.image" [alt]="product.title" class="card__image" loading="lazy" />
+    <span class="card__badge">{{ product.category }}</span>
+  </div>
+  <div class="card__body">
+    <h3 class="card__title">{{ product.title }}</h3>
+    <p class="card__price">{{ product.price | currency }}</p>
+  </div>
+</article>

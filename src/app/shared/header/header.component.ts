@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RolModel } from '@core/models/rol_model';
-import { AuthStateService } from '@features/auth/services/auth_state_service';
-import { SesionService } from '@features/auth/services/sesion_service';
+import { AuthStateService } from '@features/auth/services/auth_state_service'; 
 import { ButtonsComponent } from '@shared/buttons/buttons.component';
 
 @Component({
